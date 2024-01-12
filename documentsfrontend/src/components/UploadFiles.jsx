@@ -2,8 +2,9 @@ import { UserContext } from "@/context/UserContext";
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { mutate } from "swr";
 
-const UploadFiles = ({ handleRefresh }) => {
+const UploadFiles = () => {
   const [filesNames, setFilesNames] = useState("");
   const { user } = useContext(UserContext);
   const {
@@ -30,7 +31,7 @@ const UploadFiles = ({ handleRefresh }) => {
     toast.promise(response, {
       loading: "Uploading files...",
       success: () => {
-        handleRefresh();
+        mutate("http://localhost:4000/api/file/");
         return "File uploaded successfully";
       },
       error: "File not uploaded",
