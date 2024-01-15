@@ -32,7 +32,7 @@ const Home = () => {
 
   return (
     <motion.div className="flex items-center justify-center h-full">
-      <div className="flex flex-col items-center p-5">
+      <div className="flex flex-col items-center">
         <motion.div initial="hidden" animate="visible" variants={peepVariants}>
           <Peep />
         </motion.div>

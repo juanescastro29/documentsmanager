@@ -5,4 +5,6 @@
 body {
     margin: 0;
     height: 550px;
+    overflow: hidden;
+    scrollbar-gutter: stable;
 }
