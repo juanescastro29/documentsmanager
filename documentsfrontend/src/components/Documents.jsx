@@ -149,7 +149,7 @@ const Documents = () => {
                                   <BsFiletypeTxt size={60} />
                                 )}
                               </div>
-                              <div className="text-center h-40 overflow-auto">
+                              <div className="text-center h-40 overflow-auto text-pretty">
                                 <h1 className="text-md sm:text-md md:text-lg font-thin">
                                   {doc.name}
                                 </h1>
