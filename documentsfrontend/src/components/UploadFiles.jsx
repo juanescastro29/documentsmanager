@@ -2,6 +2,7 @@ import { UserContext } from "@/context/UserContext";
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { motion } from "framer-motion";
 import { mutate } from "swr";
 
 const UploadFiles = () => {
@@ -48,14 +49,33 @@ const UploadFiles = () => {
     setFilesNames(fileNames);
   }
 
+  const variants = {
+    hidden: { opacity: 1, y: -20, opacity: 0 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 1.3,
+        type: "spring",
+      },
+    },
+  };
+
   return (
     <>
-      <div className="flex flex-row flex-wrap justify-center items-center w-full">
+      <motion.div
+        className="flex flex-row flex-wrap justify-center items-center w-full"
+        initial="hidden"
+        animate="visible"
+        variants={variants}
+      >
         <form
           className="flex flex-col sm:flex-row md:flex-row w-full justify-between items-center p-6 align-middle"
           onSubmit={handleSubmit(upload)}
         >
-          <div className="items-center align-middle overflow-auto w-full">
+          <div
+            className="items-center align-middle overflow-auto w-full"
+          >
             <h2 className="text-xm md:text-lg align-middle item font-semibold">
               Files selected:
             </h2>
@@ -89,7 +109,7 @@ const UploadFiles = () => {
             <small>Any file selected.</small>
           </div>
         )}
-      </div>
+      </motion.div>
     </>
   );
 };

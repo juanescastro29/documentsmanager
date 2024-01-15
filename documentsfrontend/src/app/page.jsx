@@ -4,10 +4,10 @@ import Peep from "./icons/Peep";
 import { motion } from "framer-motion";
 
 const Home = () => {
-  const itemsVariants = {
-    hidden: { x: -20, opacity: 0 },
+  const peepVariants = {
+    hidden: { y: -20, opacity: 0 },
     visible: {
-      x: 0,
+      y: 0,
       opacity: 1,
       transition: {
         duration: 1.3,
@@ -17,10 +17,23 @@ const Home = () => {
     },
   };
 
+  const itemsVariants = {
+    hidden: { x: -20, opacity: 0 },
+    visible: {
+      x: 0,
+      opacity: 1,
+      transition: {
+        duration: 1.3,
+        delay: 0.3,
+        type: "spring",
+      },
+    },
+  };
+
   return (
     <motion.div className="flex items-center justify-center h-full">
       <div className="flex flex-col items-center p-5">
-        <motion.div initial="hidden" animate="visible" variants={itemsVariants}>
+        <motion.div initial="hidden" animate="visible" variants={peepVariants}>
           <Peep />
         </motion.div>
         <motion.h2
