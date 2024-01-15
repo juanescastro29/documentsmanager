@@ -62,7 +62,7 @@ const UploadFiles = () => {
             <p className="h-7">{filesNames}</p>
           </div>
           <div className="flex flex-row gap-x-1">
-            <label className="bg-gray-800 rounded-md text-white cursor-pointer p-3 me-5 h-11 w-36 shadow-lg">
+            <label className="bg-gray-800 rounded-md text-white cursor-pointer p-3 me-5 h-11 w-36 shadow-lg text-center">
               Select file
               <input
                 onInput={viewFiles}
