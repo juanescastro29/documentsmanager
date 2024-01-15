@@ -2,9 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+    overflow: auto;
+    scrollbar-gutter: auto;
+}
+
 body {
     margin: 0;
     height: 550px;
-    overflow: hidden;
-    scrollbar-gutter: stable;
 }

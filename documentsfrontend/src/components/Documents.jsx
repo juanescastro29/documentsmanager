@@ -3,7 +3,7 @@ import { BsFiletypePdf } from "react-icons/bs";
 import { BsFileEarmarkWord } from "react-icons/bs";
 import { BsFiletypeTxt } from "react-icons/bs";
 import { useContext, useState } from "react";
-import { AnimatePresence, delay, motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import Delete from "@/app/icons/Delete";
 import Download from "@/app/icons/Download";
 import toast from "react-hot-toast";
@@ -21,10 +21,10 @@ const Documents = () => {
     revalidateOnFocus: false,
   });
   const { user } = useContext(UserContext);
-  const [loading, setLoading] = useState(false)
 
   async function fetchDocs(url) {
     const userId = user[0]._id;
+    console.log(userId);
     const response = await fetch(`${url}/${userId}`);
     const data = await response.json();
     return data;
