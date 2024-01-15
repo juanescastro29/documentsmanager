@@ -49,12 +49,25 @@ const UploadFiles = () => {
     setFilesNames(fileNames);
   }
 
+  const variantsForm = {
+    hidden: { opacity: 1, x: -30, opacity: 0 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 1.3,
+        type: "spring",
+      },
+    },
+  };
+
   const variants = {
     hidden: { opacity: 1, y: -20, opacity: 0 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
+        delay: 0.4,
         duration: 1.3,
         type: "spring",
       },
@@ -63,25 +76,28 @@ const UploadFiles = () => {
 
   return (
     <>
-      <motion.div
-        className="flex flex-row flex-wrap justify-center items-center w-full"
-        initial="hidden"
-        animate="visible"
-        variants={variants}
-      >
+      <div className="flex flex-row flex-wrap justify-center items-center w-full">
         <form
           className="flex flex-col sm:flex-row md:flex-row w-full justify-between items-center p-6 align-middle"
           onSubmit={handleSubmit(upload)}
         >
-          <div
+          <motion.div
             className="items-center align-middle overflow-auto w-full"
+            initial="hidden"
+            animate="visible"
+            variants={variantsForm}
           >
             <h2 className="text-xm md:text-lg align-middle item font-semibold">
               Files selected:
             </h2>
             <p className="h-7">{filesNames}</p>
-          </div>
-          <div className="flex flex-row gap-x-1">
+          </motion.div>
+          <motion.div
+            className="flex flex-row gap-x-1"
+            initial="hidden"
+            animate="visible"
+            variants={variants}
+          >
             <label className="bg-gray-800 rounded-md text-white cursor-pointer p-3 me-5 h-11 w-36 shadow-lg text-center">
               Select file
               <input
@@ -101,7 +117,7 @@ const UploadFiles = () => {
             <button className="bg-gray-800 shadow-lg rounded-md text-white h-11 w-28">
               Upload
             </button>
-          </div>
+          </motion.div>
         </form>
 
         {errors.files?.type === "required" && (
@@ -109,7 +125,7 @@ const UploadFiles = () => {
             <small>Any file selected.</small>
           </div>
         )}
-      </motion.div>
+      </div>
     </>
   );
 };
