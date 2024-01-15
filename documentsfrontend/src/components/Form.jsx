@@ -4,9 +4,12 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { motion } from "framer-motion";
+import { useState } from "react";
+import Spinner from "./Spinner";
 
 const Form = () => {
   const router = useRouter();
+  const [loading, setLoading] = useState(true);
   const {
     register,
     handleSubmit,
@@ -15,22 +18,28 @@ const Form = () => {
   } = useForm();
 
   async function registUser(dataForm) {
+    setLoading(true)
     dataForm.rol = "USER";
-    const response = await fetch("http://localhost:4000/api/user", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(dataForm),
-    });
+    const response = await fetch(
+      "http://localhost:4000/api/user",
+      {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(dataForm),
+      }
+    );
 
     const data = await response.json();
 
     if (data.message === "User created successfully") {
       router.push("/login");
       toast.success("User created successfully");
+      setLoading(false)
     } else {
       toast.error(`${data.message}`);
+      setLoading(false)
     }
   }
 
@@ -43,7 +52,7 @@ const Form = () => {
         delayChildren: 0.4,
         staggerChildren: 0.2,
         duration: 0.8,
-        type: "spring"
+        type: "spring",
       },
     },
   };
@@ -64,9 +73,7 @@ const Form = () => {
       animate="visible"
       variants={formVariants}
     >
-      <motion.h1
-        className="text-2xl lg:text-3xl font-bold col-span-2 text-center"
-      >
+      <motion.h1 className="text-2xl lg:text-3xl font-bold col-span-2 text-center">
         Regist user
       </motion.h1>
       <motion.div className="col-span-2" variants={formItemVariants}>
@@ -189,10 +196,17 @@ const Form = () => {
           </div>
         )}
       </motion.div>
-      <motion.div className="flex items-center justify-center col-span-2 mt-4" variants={formItemVariants}>
-        <button className="bg-gray-800 rounded-md shadow-lg text-white h-10 w-28">
-          Regist
-        </button>
+      <motion.div
+        className="flex items-center justify-center col-span-2 mt-4"
+        variants={formItemVariants}
+      >
+        {loading ? (
+          <Spinner />
+        ) : (
+          <button className="bg-gray-800 rounded-md shadow-lg text-white h-10 w-28">
+            Regist
+          </button>
+        )}
       </motion.div>
     </motion.form>
   );

@@ -3,13 +3,15 @@
 import { UserContext } from "@/context/UserContext";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { motion } from 'framer-motion'
+import { motion } from "framer-motion";
 import toast from "react-hot-toast";
+import Spinner from "./Spinner";
 
 const LoginForm = () => {
   const { setSession, setUser } = useContext(UserContext);
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const {
@@ -19,13 +21,17 @@ const LoginForm = () => {
   } = useForm();
 
   async function login(dataForm) {
-    const response = await fetch("http://localhost:4000/api/user/login", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(dataForm),
-    });
+    setLoading(true);
+    const response = await fetch(
+      "https://documentsbackend.vercel.app/api/user/login",
+      {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(dataForm),
+      }
+    );
 
     const data = await response.json();
 
@@ -36,12 +42,15 @@ const LoginForm = () => {
       window.localStorage.setItem("user", JSON.stringify(data.user));
       router.push("/");
       toast.success("Login completed successfully");
+      setLoading(false);
     } else {
       if (data.message === "Unregistered user") {
         router.push("/regist");
         toast.error(`${data.message}`);
+        setLoading(false);
       } else {
         toast.error(`${data.message}`);
+        setLoading(false);
       }
     }
   }
@@ -55,7 +64,7 @@ const LoginForm = () => {
         delayChildren: 0.4,
         staggerChildren: 0.2,
         duration: 0.8,
-        type: "spring"
+        type: "spring",
       },
     },
   };
@@ -119,17 +128,27 @@ const LoginForm = () => {
           </div>
         )}
       </motion.div>
-      <motion.div className="col-span-2 text-slate-400" variants={formItemVariants}>
+      <motion.div
+        className="col-span-2 text-slate-400"
+        variants={formItemVariants}
+      >
         <small>
           <Link href="/regist" className="hover:underline">
             Create an account.
           </Link>
         </small>
       </motion.div>
-      <motion.div className="flex items-center justify-center col-span-2 mt-4" variants={formItemVariants}>
-        <button className="bg-gray-800 rounded-md shadow-lg text-white h-10 w-28">
-          Login
-        </button>
+      <motion.div
+        className="flex items-center justify-center col-span-2 mt-4"
+        variants={formItemVariants}
+      >
+        {loading ? (
+          <Spinner />
+        ) : (
+          <button className="bg-gray-800 rounded-md shadow-lg text-white h-10 w-28">
+            Login
+          </button>
+        )}
       </motion.div>
     </motion.form>
   );
