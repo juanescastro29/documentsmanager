@@ -122,7 +122,7 @@ const Documents = () => {
                           .map((doc, index) => (
                             <motion.div
                               key={doc._id}
-                              className="flex flex-col items-center justify-center border rounded-sm shadow-lg p-10 h-64 w-64"
+                              className="flex flex-col items-center justify-center border rounded-sm shadow-lg p-10 h-80 w-72"
                               custom={{ delay: (index + 1) * 0.4 }}
                               initial="hidden"
                               animate="visible"
@@ -149,7 +149,7 @@ const Documents = () => {
                                   <BsFiletypeTxt size={60} />
                                 )}
                               </div>
-                              <div className="text-center h-28">
+                              <div className="text-center h-40 overflow-auto">
                                 <h1 className="text-md sm:text-md md:text-lg font-thin">
                                   {doc.name}
                                 </h1>

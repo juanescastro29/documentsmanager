@@ -50,18 +50,18 @@ const UploadFiles = () => {
 
   return (
     <>
-      <div className="flex flex-row justify-center items-center w-full">
+      <div className="flex flex-row flex-wrap justify-center items-center w-full">
         <form
-          className="flex flex-row w-full gap-6 justify-between items-center p-8 align-middle"
+          className="flex flex-col sm:flex-row md:flex-row w-full justify-between items-center p-6 align-middle"
           onSubmit={handleSubmit(upload)}
         >
-          <div className="items-center align-middle w-56 overflow-auto sm:w-56 md:w-auto lg:w-auto">
+          <div className="items-center align-middle overflow-auto w-full">
             <h2 className="text-xm md:text-lg align-middle item font-semibold">
               Files selected:
             </h2>
             <p className="h-7">{filesNames}</p>
           </div>
-          <div className="flex flex-row flex-wrap gap-3">
+          <div className="flex flex-row gap-x-1">
             <label className="bg-gray-800 rounded-md text-white cursor-pointer p-3 me-5 h-11 w-32 shadow-lg">
               Select file
               <input
@@ -85,7 +85,7 @@ const UploadFiles = () => {
         </form>
 
         {errors.files?.type === "required" && (
-          <div className="text-center text-red-600">
+          <div className="text-center text-red-600 py-4">
             <small>Any file selected.</small>
           </div>
         )}

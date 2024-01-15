@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { motion } from "framer-motion";
 
 const Form = () => {
   const router = useRouter();
@@ -33,15 +34,42 @@ const Form = () => {
     }
   }
 
+  const formVariants = {
+    hidden: { opacity: 1, scale: 0 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        delayChildren: 0.4,
+        staggerChildren: 0.2,
+        duration: 0.8,
+        type: "spring"
+      },
+    },
+  };
+
+  const formItemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+    },
+  };
+
   return (
-    <form
+    <motion.form
       className="grid grid-cols-2 gap-2 p-5 border shadow-lg m-3"
       onSubmit={handleSubmit(registUser)}
+      initial="hidden"
+      animate="visible"
+      variants={formVariants}
     >
-      <h1 className="text-2xl lg:text-3xl font-bold col-span-2 text-center">
+      <motion.h1
+        className="text-2xl lg:text-3xl font-bold col-span-2 text-center"
+      >
         Regist user
-      </h1>
-      <div className="col-span-2">
+      </motion.h1>
+      <motion.div className="col-span-2" variants={formItemVariants}>
         <label className="block text-sm font-medium leading-8">
           First Name
         </label>
@@ -65,8 +93,8 @@ const Form = () => {
             <small>No special characters or numbers are accepted.</small>
           </div>
         )}
-      </div>
-      <div className="col-span-2">
+      </motion.div>
+      <motion.div className="col-span-2" variants={formItemVariants}>
         <label className="block text-sm font-medium leading-8">Last Name</label>
         <input
           type="text"
@@ -88,8 +116,8 @@ const Form = () => {
             <small>No special characters or numbers are accepted.</small>
           </div>
         )}
-      </div>
-      <div className="col-span-2">
+      </motion.div>
+      <motion.div className="col-span-2" variants={formItemVariants}>
         <label className="block text-sm font-medium leading-8">Email</label>
         <input
           type="text"
@@ -111,8 +139,8 @@ const Form = () => {
             <small>Invalid email.</small>
           </div>
         )}
-      </div>
-      <div className="col-span-1">
+      </motion.div>
+      <motion.div className="col-span-1" variants={formItemVariants}>
         <label className="block text-sm font-medium leading-8">Password</label>
         <input
           type="password"
@@ -135,8 +163,8 @@ const Form = () => {
             <small>Password too weak.</small>
           </div>
         )}
-      </div>
-      <div className="col-span-1">
+      </motion.div>
+      <motion.div className="col-span-1" variants={formItemVariants}>
         <label className="block text-sm font-medium leading-8">
           Confirm Password
         </label>
@@ -160,13 +188,13 @@ const Form = () => {
             <small>Passwords do not match.</small>
           </div>
         )}
-      </div>
-      <div className="flex items-center justify-center col-span-2 mt-4">
+      </motion.div>
+      <motion.div className="flex items-center justify-center col-span-2 mt-4" variants={formItemVariants}>
         <button className="bg-gray-800 rounded-md shadow-lg text-white h-10 w-28">
           Regist
         </button>
-      </div>
-    </form>
+      </motion.div>
+    </motion.form>
   );
 };
 
